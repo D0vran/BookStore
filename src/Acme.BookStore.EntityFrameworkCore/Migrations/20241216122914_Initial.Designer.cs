@@ -13,7 +13,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Acme.BookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20241216093240_Initial")]
+    [Migration("20241216122914_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -49,9 +49,23 @@ namespace Acme.BookStore.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("CreatorId");
 
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("DeleterId");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("DeletionTime");
+
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("text")
                         .HasColumnName("ExtraProperties");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
 
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("timestamp without time zone")
@@ -63,14 +77,17 @@ namespace Acme.BookStore.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(65)
+                        .HasColumnType("character varying(65)");
 
                     b.Property<string>("ShortBio")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors");
+                    b.HasIndex("Name");
+
+                    b.ToTable("AppAuthors", (string)null);
                 });
 
             modelBuilder.Entity("Acme.BookStore.Books.Book", b =>

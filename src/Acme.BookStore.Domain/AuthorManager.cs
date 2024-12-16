@@ -12,9 +12,9 @@ namespace Acme.BookStore
 {
     public class AuthorManager : DomainService
     {
-        private readonly IAuthorRepository<Author, Guid> _authorRepository;
+        private readonly IAuthorRepository _authorRepository;
 
-        public AuthorManager(IAuthorRepository<Author, Guid> authorRepository)
+        public AuthorManager(IAuthorRepository authorRepository)
         {
             _authorRepository = authorRepository;
         }
@@ -50,9 +50,9 @@ namespace Acme.BookStore
             Check.NotNullOrWhiteSpace (newName, nameof(newName));
             Check.NotNull(author, nameof(author));
             
-            var existingAuthor = _authorRepository.FindByNameAsync(newName);
+            var existingAuthor = await _authorRepository.FindByNameAsync(newName);
 
-            if (existingAuthor is not null or existingAuthor.id != author.Id)
+            if (existingAuthor != null && existingAuthor.Id != author.Id)
             {
                 throw new AuthorAlreadyExistsException(newName);
             }
