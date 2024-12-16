@@ -1,0 +1,31 @@
+{
+  "culture": "ru",
+  "Texts": {
+    "Menu:Home": "Главная",
+    "Welcome": "Добро пожаловать",
+    "LongWelcomeMessage": "Добро пожаловать в приложение. Этот запущенный проект основан на фреймворке ABP. Для получения дополнительной информации посетите сайт abp.io.",
+    "Menu:BookStore": "Список книг",
+    "Menu:Books": "Книги",
+    "Actions": "Действия",
+    "Close": "Закрыть",
+    "Delete": "Удылить",
+    "Edit": "Редактировать",
+    "DateOfPublish": "Дата публикации",
+    "NewBook": "Новая книга",
+    "Name": "Название",
+    "Type": "Тип",
+    "Price": "Цена",
+    "CreationTime": "Дата создания",
+    "AreYouSure": "Вы уверены?",
+    "AreYouSureToDelete": "Вы уверены что хотите удалить этот элемент?",
+    "Enum:BookType.0": "Не определен",
+    "Enum:BookType.1": "Хоррор",
+    "Enum:BookType.2": "Поэзия",
+    "Enum:BookType.3": "Наука",
+    "Enum:BookType.4": "История",
+    "Enum:BookType.5": "Приключения",
+    "Enum:BookType.6": "Биография",
+    "Enum:BookType.7": "Фантастика"
+
+  }
+}
