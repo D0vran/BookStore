@@ -9,7 +9,7 @@ using Volo.Abp.Emailing;
 
 namespace Acme.BookStore.Authors
 {
-    public class Author : AuditedAggregateRoot<Guid>
+    public class Author : FullAuditedAggregateRoot<Guid>
     {
         public string Name { get; private set; }
         public DateTime BirthDate { get; set; }

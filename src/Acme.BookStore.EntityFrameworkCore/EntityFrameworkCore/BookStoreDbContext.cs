@@ -100,16 +100,16 @@ public class BookStoreDbContext :
              //b.HasOne<Author>().WithMany().HasForeignKey(x => x.AuthorId).IsRequired();
              //b.HasKey(x => x.Id);
              
-         });   
+         });
 
 
-         /*builder.Entity<Author>(b =>
-         {
-             b.ToTable(BookStoreConsts.DbTablePrefix + "Authors", BookStoreConsts.DbSchema);
-             b.ConfigureByConvention();
-             b.Property(b => b.Name).IsRequired().HasMaxLength(AuthorConst.MaxLength);
-             b.HasKey(b => b.Id);
-         });*/
+        builder.Entity<Author>(a =>
+        {
+            a.ToTable(BookStoreConsts.DbTablePrefix + "Authors", BookStoreConsts.DbSchema);
+            a.ConfigureByConvention();
+            a.Property(b => b.Name).IsRequired().HasMaxLength(AuthorConst.MaxLength);
+            a.HasIndex(a => a.Name);
+        });
 
         /*builder.Entity<Comment>(b =>
         {
