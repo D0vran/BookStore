@@ -27,7 +27,7 @@ namespace Acme.BookStore
                     {
                         Name = "The 48 Laws of Power",
                         Type = BookType.Science,
-                        DateOfPublish = new DateTime(200, 09, 01),
+                        DateOfPublish = new DateTime(2000, 09, 01),
                         Price = 200f
                     });
 
