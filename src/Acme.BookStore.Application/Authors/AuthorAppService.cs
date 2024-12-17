@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper.Internal.Mappers;
 using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Repositories;
 using Volo.Abp.ObjectMapping;
 
 namespace Acme.BookStore.Authors
@@ -22,9 +24,17 @@ namespace Acme.BookStore.Authors
         }
 
         [Authorize]
-        public async Task CreateAsync(AuthorCreateDto input)
+        public async Task<AuthorDto> CreateAsync(CreateAuthorDto input)
         {
-            await _authorManager.CreateAsync();
+            var author = await _authorManager.CreateAsync(
+                                            input.Name,
+                                            input.BirthDate,
+                                            input.ShortBio
+                                            );
+
+            await _authorRepository.InsertAsync( author );
+
+            return ObjectMapper.Map<Author, AuthorDto>(author);
         }
 
         public async Task DeleteAsync(Guid id)
@@ -32,25 +42,43 @@ namespace Acme.BookStore.Authors
             await _authorRepository.DeleteAsync(id);
         }
 
-        public async Task<List<AuthorsDto>> GelListAsync(AuthorsGetListDto input)
+        public async Task<PagedResultDto<AuthorDto>> GetListAsync(GetAuthorListDto input)
         {
-            var skipCount = input.SkipCount;
-            var maxResult = input.MaxResultCount;
-            var filter = input.Filter;
-            var sorting =input.Sorting;
-            await _authorRepository.GetListAsync(skipCount, maxResult, sorting, filter);
+            if(input.Sorting == null)
+            {
+                input.Sorting = nameof(Author.Name);
+            }
+
+            var authors = await _authorRepository.GetListAsync(input.SkipCount, input.MaxResultCount, input.Sorting, input.Filter);
+
+            var totalCount = input.Filter == null 
+                ? await _authorRepository.CountAsync() 
+                : await _authorRepository.CountAsync(
+                    author => author.Name.Contains(input.Filter));
+
+            return new PagedResultDto<AuthorDto>(
+                totalCount,
+                ObjectMapper.Map<List<Author>, List<AuthorDto>>(authors));
         }
 
-        public async Task<AuthorsDto> GetAsync(Guid id)
+        public async Task<AuthorDto> GetAsync(Guid id)
         {
             var author = await _authorRepository.GetAsync(id);
-            return ObjectMapper.Map<Author, AuthorsDto>(author);
+            return ObjectMapper.Map<Author, AuthorDto>(author);
         }
 
         [Authorize]
-        public Task<AuthorsDto> UpdateAsync(Guid id, AuthorUpdateDto input)
+        public async Task UpdateAsync(Guid id, UpdateAuthorDto input)
         {
-            throw new NotImplementedException();
+            var existing = await _authorRepository.GetAsync(id);
+            
+            if(existing.Name != input.Name)
+            {
+                _authorManager.ChangeNameAsync(existing, input.Name);
+            }
+
+            existing.BirthDate = input.BirthDate;
+            existing.ShortBio = input.ShortBio;
         }
     }
 }

@@ -394,17 +394,13 @@ namespace Acme.BookStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppBooks",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
-                    Type = table.Column<int>(type: "integer", nullable: false),
-                    DateOfPublish = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    Price = table.Column<float>(type: "real", nullable: false),
+                    Text = table.Column<string>(type: "text", nullable: true),
+                    BookId = table.Column<Guid>(type: "uuid", nullable: false),
                     AuthorId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ExtraProperties = table.Column<string>(type: "text", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
                     LastModificationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
@@ -412,7 +408,7 @@ namespace Acme.BookStore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppBooks", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -708,13 +704,17 @@ namespace Acme.BookStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comments",
+                name: "AppBooks",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Text = table.Column<string>(type: "text", nullable: true),
-                    BookId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Type = table.Column<int>(type: "integer", nullable: false),
+                    DateOfPublish = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Price = table.Column<float>(type: "real", nullable: false),
                     AuthorId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ExtraProperties = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
                     LastModificationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
@@ -722,11 +722,11 @@ namespace Acme.BookStore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.PrimaryKey("PK_AppBooks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comments_AppBooks_BookId",
-                        column: x => x.BookId,
-                        principalTable: "AppBooks",
+                        name: "FK_AppBooks_AppAuthors_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "AppAuthors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1021,9 +1021,9 @@ namespace Acme.BookStore.Migrations
                 column: "Name");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_BookId",
-                table: "Comments",
-                column: "BookId");
+                name: "IX_AppBooks_AuthorId",
+                table: "AppBooks",
+                column: "AuthorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictApplications_ClientId",
@@ -1126,7 +1126,7 @@ namespace Acme.BookStore.Migrations
                 name: "AbpUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AppAuthors");
+                name: "AppBooks");
 
             migrationBuilder.DropTable(
                 name: "Comments");
@@ -1153,7 +1153,7 @@ namespace Acme.BookStore.Migrations
                 name: "AbpUsers");
 
             migrationBuilder.DropTable(
-                name: "AppBooks");
+                name: "AppAuthors");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictAuthorizations");

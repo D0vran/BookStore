@@ -5,7 +5,7 @@
 namespace Acme.BookStore.Migrations
 {
     /// <inheritdoc />
-    public partial class Added_Authors : Migration
+    public partial class Binding : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

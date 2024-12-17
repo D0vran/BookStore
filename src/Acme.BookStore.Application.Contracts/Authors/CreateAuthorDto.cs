@@ -6,7 +6,7 @@ using Volo.Abp.Json.SystemTextJson.JsonConverters;
 
 namespace Acme.BookStore
 {
-    public class AuthorCreateDto : AuditedEntityDto
+    public class CreateAuthorDto : AuditedEntityDto
     {
         [Required]
         [MaxLength(AuthorConst.MaxLength)]

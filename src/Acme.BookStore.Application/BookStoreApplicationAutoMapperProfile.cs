@@ -12,8 +12,9 @@ public class BookStoreApplicationAutoMapperProfile : Profile
          * Alternatively, you can split your mapping configurations
          * into multiple profile classes for a better organization. */
         CreateMap<Book, BookDto>();
-        CreateMap<CreateBookDto, Book>();
-        CreateMap<Author, AuthorsDto>();
-        CreateMap<AuthorUpdateDto, Author>();
+        CreateMap<CreateUpdateBookDto, Book>();
+        CreateMap<Author, AuthorDto>();
+        CreateMap<UpdateAuthorDto, Author>();
+        CreateMap<Author, AuthorLookupDto>();
     }
 }

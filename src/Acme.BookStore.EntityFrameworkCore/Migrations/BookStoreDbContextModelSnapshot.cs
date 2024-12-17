@@ -137,6 +137,8 @@ namespace Acme.BookStore.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.ToTable("AppBooks", (string)null);
                 });
 
@@ -171,8 +173,6 @@ namespace Acme.BookStore.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BookId");
 
                     b.ToTable("Comments");
                 });
@@ -1829,11 +1829,11 @@ namespace Acme.BookStore.Migrations
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
                 });
 
-            modelBuilder.Entity("Acme.BookStore.Comments.Comment", b =>
+            modelBuilder.Entity("Acme.BookStore.Books.Book", b =>
                 {
-                    b.HasOne("Acme.BookStore.Books.Book", null)
-                        .WithMany("comments")
-                        .HasForeignKey("BookId")
+                    b.HasOne("Acme.BookStore.Authors.Author", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1978,11 +1978,6 @@ namespace Acme.BookStore.Migrations
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Acme.BookStore.Books.Book", b =>
-                {
-                    b.Navigation("comments");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>

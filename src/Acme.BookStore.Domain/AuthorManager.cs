@@ -20,17 +20,16 @@ namespace Acme.BookStore
         }
 
         public async Task<Author> CreateAsync   
-                (Guid id,
-                string name,
+                (string name,
                 DateTime dateOfBirth,
-                string? shortBio)
+                string shortBio)
                     
         {
             Check.NotNullOrWhiteSpace(name, nameof(name));
 
             var existingAuthor = await _authorRepository.FindByNameAsync(name);
 
-            if(existingAuthor is not null)
+            if(existingAuthor != null)
             {
                 throw new AuthorAlreadyExistsException(name);
             }

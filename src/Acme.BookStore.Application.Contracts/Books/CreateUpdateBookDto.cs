@@ -7,7 +7,7 @@ using Volo.Abp.Application.Services;
 
 namespace Acme.BookStore.Books
 {
-    public class CreateBookDto 
+    public class CreateUpdateBookDto 
     {
         [Required]
         [StringLength(128)]
@@ -22,6 +22,7 @@ namespace Acme.BookStore.Books
 
         [Required]
         public float Price { get; set; }
+        public Guid AuthorId { get; set; }
 
     }
 }

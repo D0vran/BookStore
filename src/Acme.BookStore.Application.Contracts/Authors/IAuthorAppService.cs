@@ -4,19 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Acme.BookStore.Authors;
+using Volo.Abp.Application.Dtos;
 
 namespace Acme.BookStore
 {
     public interface IAuthorAppService
     {
-        Task<AuthorsDto> GetAsync(Guid id);
+        Task<AuthorDto> GetAsync(Guid id);
         
-        Task<AuthorsDto> UpdateAsync(Guid id, AuthorUpdateDto input);
+        Task UpdateAsync(Guid id, UpdateAuthorDto input);
         
-        Task CreateAsync(AuthorCreateDto input);
+        Task<AuthorDto> CreateAsync(CreateAuthorDto input);
         
         Task DeleteAsync(Guid id);
          
-        Task<List<AuthorsDto>> GelListAsync(AuthorsGetListDto input);
+        Task<PagedResultDto<AuthorDto>> GetListAsync(GetAuthorListDto input);
     }
 }
