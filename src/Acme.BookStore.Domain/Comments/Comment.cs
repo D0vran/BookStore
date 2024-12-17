@@ -11,7 +11,7 @@ namespace Acme.BookStore.Comments
     public class Comment : AuditedEntity<Guid>
     {
         public string? Text { get; set; }
+        public Guid UserId { get; set; }
         public Guid BookId { get; set; }
-        public Guid AuthorId { get; set; }  
     }
 }

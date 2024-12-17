@@ -13,7 +13,8 @@ namespace Acme.BookStore
         public EntityNotFoundExeption(Type Book, Guid id)
             : base(BookStoreEntityErrorCodes.EntityNotFound)
         {
-            WithData(nameof(id), Book);
+            WithData("book", Book);
+            WithData("id", id);
         }
     }
 }

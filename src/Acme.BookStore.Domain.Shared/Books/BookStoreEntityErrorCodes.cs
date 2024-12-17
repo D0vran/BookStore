@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Acme.BookStore
+namespace Acme.BookStore.Books
 {
     public class BookStoreEntityErrorCodes
     {

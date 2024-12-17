@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Dtos;
 
-namespace Acme.BookStore.Books
+namespace Acme.BookStore.Authors
 {
     public class AuthorLookupDto : EntityDto<Guid>
     {

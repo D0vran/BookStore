@@ -98,6 +98,7 @@ public class BookStoreDbContext :
              b.ConfigureByConvention();
              b.Property(x => x.Name).IsRequired().HasMaxLength(128);
              b.HasOne<Author>().WithMany().HasForeignKey(x => x.AuthorId).IsRequired();
+             b.HasMany<Comment>().WithOne();
              
          });
 
@@ -110,13 +111,13 @@ public class BookStoreDbContext :
             a.HasIndex(a => a.Name);
         });
 
-        /*builder.Entity<Comment>(b =>
+        builder.Entity<Comment>(c =>
         {
-            b.ToTable(BookStoreConsts.DbTablePrefix + "Comments", BookStoreConsts.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(b => b.Id).IsRequired().HasMaxLength(500);
-            b.HasOne<User>().WithMany().HasForeignKey(x => x.UserId).IsRequired();
-        });*/
-
+            c.ToTable(BookStoreConsts.DbTablePrefix + "Comments", BookStoreConsts.DbSchema);
+            c.ConfigureByConvention();
+            c.Property(c => c.Id).IsRequired().HasMaxLength(CommentConsts.maxCommentLength);
+            c.HasOne<Book>().WithMany().HasForeignKey(c => c.BookId).IsRequired();
+            c.HasOne<IdentityUser>().WithMany().HasForeignKey(c => c.UserId).IsRequired();
+        });
     }
 }

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Acme.BookStore.Authors;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Json.SystemTextJson.JsonConverters;
 
-namespace Acme.BookStore
+namespace Acme.BookStore.Authors
 {
     public interface IAuthorRepository : IRepository<Author, Guid>
     {

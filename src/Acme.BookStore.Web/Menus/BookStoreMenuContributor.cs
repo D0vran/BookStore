@@ -55,9 +55,13 @@ public class BookStoreMenuContributor : IMenuContributor
                 new ApplicationMenuItem(
                 "BooksStore.Books",
                 l["Menu:Books"],
-                url: "/Books"
-        )
-    )
+                url: "/Books")
+            )
+            .AddItem(new ApplicationMenuItem(
+                "BookStore.Authors", 
+                l["Menu:Authors"], 
+                url: "/Authors")
+            )
 );
 
         return Task.CompletedTask;

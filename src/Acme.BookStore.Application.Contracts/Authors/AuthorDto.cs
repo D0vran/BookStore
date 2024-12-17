@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace Acme.BookStore.Authors
 {
-    public class AuthorDto : EntityDto
+    public class AuthorDto : EntityDto<Guid>
     {
         public string Name { get; private set; }
         public DateTime BirthDate { get; set; }
